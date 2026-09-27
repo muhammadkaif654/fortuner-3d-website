@@ -1,0 +1,10 @@
+Drop the extracted image sequence for the "cockpit" video here:
+
+  frame_0001.webp, frame_0002.webp ... frame_0200.webp
+  (optional) mobile/frame_0001.webp ... for phones
+  (optional) manifest.json  -> { "frameCount": 200 }
+
+Fastest way:
+  python tools/extract_frames.py path/to/cockpit.mp4 assets/sequences/cockpit
+
+Until frames exist, the site shows a live fallback for this section.

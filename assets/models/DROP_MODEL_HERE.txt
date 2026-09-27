@@ -1,0 +1,3 @@
+Optional: place a GLB model here named  fortuner.glb
+It replaces the procedural 3D Fortuner automatically.
+See README -> "Using a real 3D model" for material naming, rotation and hotspot tuning.

@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en" class="is-loading">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Fortuner Legender — Cinematic 3D Showcase</title>
+  <meta name="description" content="A cinematic, scroll-driven 3D showcase of the Toyota Fortuner Legender: 2.8L turbo diesel, 4x4 with low range, live paint configurator.">
+  <meta name="theme-color" content="#050608">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23050608'/%3E%3Cpath d='M7 24 L16 7 L25 24 M11.5 17 H20.5' fill='none' stroke='%23d9a864' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/sections.css">
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js" defer></script>
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+
+  <!-- ============ LOADER ============ -->
+  <div class="loader" id="loader" role="status" aria-live="polite">
+    <div class="loader__inner">
+      <p class="loader__eyebrow">Igniting 1GD-FTV</p>
+      <div class="loader__word" aria-hidden="true">
+        <span class="loader__word-base">FORTUNER</span>
+        <span class="loader__word-fill">FORTUNER</span>
+      </div>
+      <div class="loader__bar"><i></i></div>
+      <div class="loader__meta">
+        <span class="loader__step">Preparing studio</span>
+        <span class="loader__pct"><b>000</b>%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PERSISTENT WEBGL STAGE ============ -->
+  <canvas id="stage" class="stage" aria-hidden="true"></canvas>
+  <div class="stage-fallback" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ============ CURSOR ============ -->
+  <div class="cursor" aria-hidden="true">
+    <div class="cursor__glow"></div>
+    <div class="cursor__ring"><span class="cursor__label"></span></div>
+    <div class="cursor__dot"></div>
+  </div>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <div class="nav__pill glass">
+      <a class="nav__brand" href="#hero" data-scroll aria-label="Back to top">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 25 L16 5 L27 25 M10.5 17 H21.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>FORTUNER</span>
+      </a>
+      <nav class="nav__links" aria-label="Sections">
+        <a href="#design" data-scroll>Design</a>
+        <a href="#performance" data-scroll>Performance</a>
+        <a href="#terrain" data-scroll>Terrain</a>
+        <a href="#features" data-scroll>Features</a>
+        <a href="#interior" data-scroll>Interior</a>
+        <a href="#configure" data-scroll>Configure</a>
+      </nav>
+      <a class="btn btn--primary btn--sm nav__cta" href="#specs" data-scroll data-magnetic="0.25"><span>Test Drive</span></a>
+      <button class="nav__burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
+      <div class="nav__progress"><i></i></div>
+    </div>
+  </header>
+
+  <div class="menu glass" id="menu" hidden>
+    <a href="#design" data-scroll>Design</a>
+    <a href="#performance" data-scroll>Performance</a>
+    <a href="#terrain" data-scroll>Terrain</a>
+    <a href="#features" data-scroll>Features</a>
+    <a href="#interior" data-scroll>Interior</a>
+    <a href="#configure" data-scroll>Configure</a>
+    <a href="#specs" data-scroll>Specifications</a>
+  </div>
+
+  <aside class="chapter" aria-hidden="true">
+    <span class="chapter__num">01</span><span class="chapter__sep">/</span><span class="chapter__total">08</span>
+    <span class="chapter__name">Legend</span>
+  </aside>
+
+  <main id="main">
+
+    <!-- ============ 01 HERO ============ -->
+    <section class="hero" id="hero" data-stage="hero" data-chapter="Legend">
+      <div class="hero__top">
+        <p class="eyebrow hero__eyebrow" data-hero-in>Toyota &middot; Legender 4&times;4 &middot; 2.8 Turbo Diesel</p>
+        <h1 class="hero__title" aria-label="Fortuner"><span data-split>FORTUNER</span></h1>
+      </div>
+
+      <div class="hero__bottom">
+        <div class="hero__copy">
+          <p class="hero__sub" data-hero-in>The legend, re-engineered. Body-on-frame grit wrapped in a split-grille, quad-LED face &mdash; built to own every road and all the places roads give up.</p>
+          <div class="hero__ctas" data-hero-in>
+            <a href="#design" class="btn btn--primary" data-scroll data-magnetic><span>Explore the legend</span></a>
+            <a href="#configure" class="btn btn--ghost" data-scroll data-magnetic><span>Configure</span></a>
+          </div>
+        </div>
+
+        <dl class="hero__hud glass" data-hero-in>
+          <div><dt>Power</dt><dd>204<small>PS</small></dd></div>
+          <div><dt>Torque</dt><dd>500<small>Nm</small></dd></div>
+          <div><dt>Drive</dt><dd>4&times;4<small>L4</small></dd></div>
+        </dl>
+      </div>
+
+      <div class="hero__scroll" data-hero-in>
+        <span>Scroll to ignite</span>
+        <i class="hero__scroll-line"></i>
+      </div>
+    </section>
+
+    <!-- ============ 02 DESIGN — ORBIT SEQUENCE ============ -->
+    <section class="cinema" id="design" data-sequence="orbit" data-chapter="Design" style="--len: 420vh">
+      <div class="cinema__sticky">
+        <div class="cinema__frame">
+          <canvas class="cinema__canvas" aria-hidden="true"></canvas>
+          <div class="cinema__vignette"></div>
+        </div>
+
+        <div class="cinema__cards">
+          <article class="cinema__card" data-from="0.04" data-to="0.28">
+            <p class="eyebrow">02 &mdash; Design</p>
+            <h2 class="display">Sculpted<br>to command.</h2>
+            <p>A broad-shouldered stance, split-grille face and chrome-accented flanks. Presence you feel before you hear it.</p>
+          </article>
+          <article class="cinema__card cinema__card--right" data-from="0.36" data-to="0.62">
+            <p class="eyebrow">Signature lighting</p>
+            <h2 class="display">Quad-LED<br>glare.</h2>
+            <p>Slim quad-LED headlamps with sequential indicators sweep into the fenders &mdash; a light signature that owns the night.</p>
+          </article>
+          <article class="cinema__card" data-from="0.70" data-to="0.96">
+            <p class="eyebrow">360&deg; presence</p>
+            <h2 class="display">No bad<br>angles.</h2>
+            <p>Every line resolves into purpose: approach, departure and breakover angles drawn for the trail, polished for the city.</p>
+          </article>
+        </div>
+
+        <div class="cinema__hud" aria-hidden="true">
+          <span class="cinema__tag">SEQ 01 &middot; ORBIT</span>
+          <span class="cinema__frameno"><b>0001</b> / 0200</span>
+          <i class="cinema__progress"><i></i></i>
+        </div>
+        <p class="cinema__badge glass" hidden></p>
+      </div>
+    </section>
+
+    <!-- ============ 03 PERFORMANCE — TELEMETRY ============ -->
+    <section class="telemetry" id="performance" data-stage="telemetry" data-chapter="Performance" style="--len: 440vh">
+      <div class="telemetry__sticky">
+        <div class="hud-frame" aria-hidden="true">
+          <i class="hud-frame__corner hud-frame__corner--tl"></i>
+          <i class="hud-frame__corner hud-frame__corner--tr"></i>
+          <i class="hud-frame__corner hud-frame__corner--bl"></i>
+          <i class="hud-frame__corner hud-frame__corner--br"></i>
+          <i class="hud-frame__scan"></i>
+          <i class="hud-frame__grid"></i>
+          <div class="hud-frame__reticle" data-depth="0.25"><i></i><i></i></div>
+        </div>
+
+        <header class="telemetry__head" data-depth="0.35">
+          <p class="eyebrow">03 &mdash; Telemetry</p>
+          <h2 class="display">Relentless<br>pull.</h2>
+          <p class="telemetry__phase"><span class="telemetry__phase-num">01</span> / 04 &middot; <span class="telemetry__phase-name">Power</span></p>
+        </header>
+
+        <div class="telemetry__cards" id="statCards"></div>
+
+        <div class="telemetry__live" aria-hidden="true">
+          <span>ENG <b>1GD-FTV</b></span>
+          <span>RPM <b data-live="rpm">0800</b></span>
+          <span>BOOST <b data-live="boost">0.00</b> BAR</span>
+          <span>OIL <b data-live="oil">092</b>&deg;C</span>
+          <span>T/C <b data-live="tc">4H</b></span>
+        </div>
+
+        <div class="telemetry__rail" aria-hidden="true">
+          <i class="telemetry__rail-fill"></i>
+          <span data-tick="0">01</span><span data-tick="1">02</span><span data-tick="2">03</span><span data-tick="3">04</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 04 TERRAIN — OFF-ROAD SEQUENCE ============ -->
+    <section class="cinema" id="terrain" data-sequence="offroad" data-chapter="Terrain" style="--len: 380vh">
+      <div class="cinema__sticky">
+        <div class="cinema__frame">
+          <canvas class="cinema__canvas" aria-hidden="true"></canvas>
+          <div class="cinema__vignette"></div>
+        </div>
+
+        <div class="cinema__cards">
+          <article class="cinema__card" data-from="0.05" data-to="0.30">
+            <p class="eyebrow">04 &mdash; Terrain</p>
+            <h2 class="display">Where roads<br>give up.</h2>
+            <p>Electronically shifted 4&times;4 with low range: H2 for the highway, H4 for the loose stuff, L4 when the mountain fights back.</p>
+          </article>
+          <article class="cinema__card cinema__card--right" data-from="0.38" data-to="0.62">
+            <p class="eyebrow">Traction arsenal</p>
+            <h2 class="display">Lock.<br>Crawl. Climb.</h2>
+            <p>Rear differential lock, Downhill Assist Control and Hill-start Assist keep all four tyres working for you.</p>
+          </article>
+          <article class="cinema__card" data-from="0.70" data-to="0.96">
+            <p class="eyebrow">Body-on-frame</p>
+            <h2 class="display">700 mm<br>of nerve.</h2>
+            <p>A ladder-frame chassis with double-wishbone front and 4-link rear suspension, rated to wade 700 mm deep.</p>
+          </article>
+        </div>
+
+        <div class="cinema__hud" aria-hidden="true">
+          <span class="cinema__tag">SEQ 02 &middot; TERRAIN</span>
+          <span class="cinema__frameno"><b>0001</b> / 0200</span>
+          <i class="cinema__progress"><i></i></i>
+        </div>
+        <p class="cinema__badge glass" hidden></p>
+      </div>
+    </section>
+
+    <!-- ============ 05 FEATURES — 3D HOTSPOTS ============ -->
+    <section class="features" id="features" data-stage="hotspots" data-chapter="Features" data-cursor="drag" style="--len: 190vh">
+      <div class="features__sticky">
+        <header class="features__head">
+          <p class="eyebrow">05 &mdash; Anatomy</p>
+          <h2 class="display">Every detail,<br>engineered.</h2>
+          <p class="features__hint">Select a marker &middot; drag to rotate</p>
+        </header>
+
+        <div class="hotspots" id="hotspots"></div>
+
+        <aside class="feature-panel glass" id="featurePanel" aria-live="polite" aria-hidden="true">
+          <button class="feature-panel__close" aria-label="Close feature" data-magnetic="0.3"><span>&times;</span></button>
+          <p class="eyebrow feature-panel__idx">01 / 06</p>
+          <h3 class="feature-panel__title">Title</h3>
+          <p class="feature-panel__body">Body</p>
+          <dl class="feature-panel__stats"></dl>
+          <div class="feature-panel__nav">
+            <button class="btn btn--ghost btn--sm" data-dir="-1"><span>Prev</span></button>
+            <button class="btn btn--ghost btn--sm" data-dir="1"><span>Next</span></button>
+          </div>
+        </aside>
+
+        <ul class="features__index" id="featureIndex"></ul>
+      </div>
+    </section>
+
+    <!-- ============ 06 INTERIOR — COCKPIT SEQUENCE ============ -->
+    <section class="cinema" id="interior" data-sequence="cockpit" data-chapter="Interior" style="--len: 380vh">
+      <div class="cinema__sticky">
+        <div class="cinema__frame">
+          <canvas class="cinema__canvas" aria-hidden="true"></canvas>
+          <div class="cinema__vignette"></div>
+        </div>
+
+        <div class="cinema__cards">
+          <article class="cinema__card" data-from="0.04" data-to="0.26">
+            <p class="eyebrow">06 &mdash; Interior</p>
+            <h2 class="display">Step inside<br>the legend.</h2>
+            <p>From the grille to the cabin in one breath. Leather, soft-touch surfaces and contrast stitching wrap a commanding driving position.</p>
+          </article>
+          <article class="cinema__card cinema__card--right" data-from="0.40" data-to="0.64">
+            <p class="eyebrow">Ambient cabin</p>
+            <h2 class="display">Lit like<br>a lounge.</h2>
+            <p>Ambient illumination traces the dash and doors while dual-zone climate keeps every row composed.</p>
+          </article>
+          <article class="cinema__card" data-from="0.72" data-to="0.97">
+            <p class="eyebrow">Command centre</p>
+            <h2 class="display">Everything,<br>at hand.</h2>
+            <p>A floating touchscreen with smartphone integration, optitron-style instruments and a leather-wrapped wheel with paddle shifters.</p>
+          </article>
+        </div>
+
+        <div class="cinema__hud" aria-hidden="true">
+          <span class="cinema__tag">SEQ 03 &middot; COCKPIT</span>
+          <span class="cinema__frameno"><b>0001</b> / 0200</span>
+          <i class="cinema__progress"><i></i></i>
+        </div>
+        <p class="cinema__badge glass" hidden></p>
+      </div>
+    </section>
+
+    <!-- ============ 07 CONFIGURATOR ============ -->
+    <section class="config" id="configure" data-stage="config" data-chapter="Configure" data-cursor="drag" style="--len: 170vh">
+      <div class="config__sticky">
+        <div class="config__tint" aria-hidden="true"></div>
+
+        <div class="config__panel">
+          <p class="eyebrow">07 &mdash; Configurator</p>
+          <h2 class="config__name display"><span>Super White</span></h2>
+          <p class="config__type">Solid &middot; high-gloss clearcoat</p>
+
+          <div class="swatches" id="swatches" role="radiogroup" aria-label="Exterior finish"></div>
+
+          <label class="toggle">
+            <input type="checkbox" id="dualTone">
+            <span class="toggle__track"><i></i></span>
+            <span>Legender dual-tone roof</span>
+          </label>
+
+          <div class="config__actions">
+            <button class="btn btn--ghost" id="spinBtn" data-magnetic><span>360&deg; spin</span></button>
+            <a class="btn btn--primary" href="#specs" data-scroll data-magnetic><span>Reserve yours</span></a>
+          </div>
+        </div>
+
+        <div class="config__meta" aria-hidden="true">
+          <span class="config__count"><b>01</b> / 04</span>
+          <span class="config__hint">Drag to rotate</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 08 SPECS + CTA ============ -->
+    <section class="specs" id="specs" data-stage="none" data-chapter="Specifications">
+      <div class="specs__inner">
+        <header class="specs__head" data-reveal>
+          <p class="eyebrow">08 &mdash; Specifications</p>
+          <h2 class="display">Own the<br>legend.</h2>
+        </header>
+
+        <dl class="specs__grid" id="specsGrid" data-reveal-stagger></dl>
+
+        <div class="specs__cta" data-reveal>
+          <p>Feel 500 Nm for yourself. Book a test drive at your nearest dealership.</p>
+          <a class="btn btn--primary btn--lg" href="#" data-magnetic data-dealer-link><span>Book a test drive</span></a>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <p>Unofficial concept showcase. Toyota, Fortuner and Legender are trademarks of Toyota Motor Corporation. Figures are indicative and vary by market and variant.</p>
+        <a href="#hero" data-scroll>Back to top &uarr;</a>
+      </footer>
+    </section>
+  </main>
+
+  <noscript><p class="noscript">This experience needs JavaScript and WebGL.</p></noscript>
+</body>
+</html>

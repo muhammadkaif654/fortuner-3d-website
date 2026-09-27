@@ -1,0 +1,10 @@
+Drop the extracted image sequence for the "hero" video here:
+
+  frame_0001.webp, frame_0002.webp ... frame_0200.webp
+  (optional) mobile/frame_0001.webp ... for phones
+  (optional) manifest.json  -> { "frameCount": 200 }
+
+Fastest way:
+  python tools/extract_frames.py path/to/hero.mp4 assets/sequences/hero
+
+Until frames exist, the site shows a live fallback for this section.
